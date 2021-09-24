@@ -56,7 +56,9 @@ function randomColors(){
         colorizeSliders(color, hue, brightness, saturation)
         
     });
-}
+    // resetting inputs
+    resetInputs();
+};
 
 function checkTextContrast(color, text){
     const luminance = chroma(color).luminance();
@@ -84,6 +86,11 @@ function colorizeSliders(color, hue, brightness, saturation){
     brightness.style.backgroundImage = `linear-gradient(to right, ${scaleBright(0)},${scaleBright(0.5)}, ${scaleBright(1)})`;
 
     hue.style.backgroundImage = `linear-gradient(to right, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF, #FF0000)`;
+
+    // resetting sliders
+    saturation.value = color.hsl()[1];
+    brightness.value = color.hsl()[2];
+    hue.value = color.hsl()[0];
 };
 
 function hslControls(e){
@@ -107,6 +114,8 @@ function hslControls(e){
 
     
     colorDivs[index].style.backgroundColor = color;
+    // updating slider values
+    colorizeSliders(color, hue, brightness, saturation);
 }
 
 
@@ -123,6 +132,9 @@ function updateTextUI(index){
         checkTextContrast(color, icon);
     }
 }
+
+
+
 
 
 randomColors();
